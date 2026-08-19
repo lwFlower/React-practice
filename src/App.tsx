@@ -5,7 +5,7 @@ const addButtonAction = () => {
 }
 
 const addButton = {
-  label: 'Add task +',
+  label: 'Add task',
   action: addButtonAction,
 };
 
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <h1>To do list</h1>
+      <h1>Another list</h1>
       <ul>
         {tasks.map((task) => <li key={task}>{task} <Button label={removeButton.label} action={removeButton.action} color={removeButton.color} type="remove"/></li>)}
       </ul>
