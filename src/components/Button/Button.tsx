@@ -11,7 +11,7 @@ interface ButtonProps {
 const Button = (props: ButtonProps) => {
     const isTextButton = props.type === 'text';
     return (
-      <button onClick={props.action} className={isTextButton ? "customButton" : 'removeButton'} style={{color: props.color}}>{props.label}</button>
+      <button onClick={props.action} className={isTextButton ? "customButton" : 'removeButton'} style={{color: props.color}}>{props.label} </button>
     )
 }
 

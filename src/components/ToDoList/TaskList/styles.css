@@ -1,0 +1,58 @@
+.done {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.taskListContainer {
+    gap: 10px;
+}
+
+.taskListHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.taskItem {
+    border: 2px solid #cbcbcb;
+    border-radius: 6px;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+
+    font-size: 18px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    accent-color: rgb(35, 34, 34);
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.deleteBtn {
+    margin-left: auto;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteAll {
+    cursor: pointer;
+}
