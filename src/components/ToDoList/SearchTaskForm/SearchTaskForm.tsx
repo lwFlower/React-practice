@@ -1,19 +1,16 @@
-import Field from "../../Field/Field";
+import Field from '../../Field/Field';
 
 interface SearchProps {
     searchQuery: string;
-    setSearchQuery: (value: any) => void; 
+    setSearchQuery: (value: string) => void;
 }
 
 const SearchTaskForm = (props: SearchProps) => {
-    const {
-        searchQuery,
-        setSearchQuery,
-    } = props;
+    const { searchQuery, setSearchQuery } = props;
 
     return (
         <form onSubmit={(event) => event.preventDefault()}>
-            <Field 
+            <Field
                 label="Search task"
                 id="id-search"
                 value={searchQuery}
@@ -21,7 +18,7 @@ const SearchTaskForm = (props: SearchProps) => {
                 type="search"
             />
         </form>
-    )
-}
+    );
+};
 
 export default SearchTaskForm;

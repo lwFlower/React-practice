@@ -1,18 +1,16 @@
-import './style.css'
-import type { ButtonType } from '../../types';
+import './style.css';
 
 interface ButtonProps {
-  label: string,
-  action: () => void,
-  color?: string,
-  type: ButtonType,
+    label: string;
+    action: () => void;
 }
 
 const Button = (props: ButtonProps) => {
-    const isTextButton = props.type === 'text';
     return (
-      <button onClick={props.action} className={isTextButton ? "customButton" : 'removeButton'} style={{color: props.color}}>{props.label} </button>
-    )
-}
+        <button onClick={props.action} className="customButton">
+            {props.label}{' '}
+        </button>
+    );
+};
 
 export default Button;
