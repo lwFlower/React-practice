@@ -35,6 +35,7 @@ const ToDoList = () => {
 
             setTasks([...tasks, newTask]);
             setNewTask('');
+            setSearchQuery('');
         }
     }
 
@@ -59,13 +60,18 @@ const ToDoList = () => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
+    const clearSearchQuery = searchQuery.trim().toLowerCase();
+    const filteredTasks = clearSearchQuery.length > 0
+        ? tasks.filter(({ label }) => label.toLowerCase().includes(clearSearchQuery))
+        : null;
+
     return (
         <div className="todoList">
             <div className="formsContainer">
                 <AddTaskForm newTask={newTaskTitle} setNewTask={setNewTask} addTask={addTask}/>
                 <SearchTaskForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} />  
             </div>
-            <TaskList tasks={tasks} removeAll={removeAll} removeOne={removeTask} toggleTask={toggleTask}/>
+            <TaskList tasks={tasks} filteredTasks={filteredTasks} removeAll={removeAll} removeOne={removeTask} toggleTask={toggleTask}/>
         </div>
     )
   

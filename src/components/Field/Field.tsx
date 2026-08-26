@@ -18,7 +18,7 @@ const Field = (props: FieldPorps) => {
     } = props;
 
     return (
-        <input className="Field" id={id} placeholder={label} autoComplete="off" type={type} value={value} onInput={onInput} />
+        <input className="field" id={id} placeholder={label} autoComplete="off" type={type} value={value} onInput={onInput} />
     )
 }
 
