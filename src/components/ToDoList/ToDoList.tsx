@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AddField from "../AddField/AddField";
 import './styles.css';
-import type { TaskType } from "./styles";
+import type { TaskType } from "./types";
 import TaskList from "./TaskList/TaskList";
 
 const ToDoList = () => {

@@ -1,6 +1,6 @@
 
 import { X } from "lucide-react";
-import type { TaskType } from "../styles";
+import type { TaskType } from "../types";
 import './styles.css'
 
 interface DeleteAllProps {
