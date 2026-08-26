@@ -1,8 +1,10 @@
-import { useState } from "react";
-import AddField from "../AddField/AddField";
+import { useEffect, useState } from "react";
+import Field from "../Field/Field";
 import './styles.css';
 import type { TaskType } from "./types";
 import TaskList from "./TaskList/TaskList";
+import AddTaskForm from "./AddTaskForm/AddTaskForm";
+import SearchTaskForm from "./SearchTaskForm/SearchTaskForm";
 
 const ToDoList = () => {
     const initialTasks: TaskType[] = [
@@ -10,8 +12,18 @@ const ToDoList = () => {
         {id: '001', label: 'Play Overwatch', isDone: true}
     ]
 
-    const [tasks, setTasks] = useState<TaskType[]>(initialTasks);
+    const [tasks, setTasks] = useState<TaskType[]>(() => {
+        const savedTasks = localStorage.getItem('tasks');
+
+        if (savedTasks) {
+            return JSON.parse(savedTasks)
+        }
+
+        return initialTasks;
+    });
+
     const [newTaskTitle, setNewTask] = useState('');
+    const [searchQuery, setSearchQuery] = useState(''); 
 
     const addTask = () => {
         if (newTaskTitle.trim().length > 0) {
@@ -32,7 +44,8 @@ const ToDoList = () => {
     }
 
     const removeAll = () => {
-        setTasks([]);
+        const isConfirmed = confirm('Are you sure you want to delete all tasks?');
+        if (isConfirmed) setTasks([]);
     }
 
     const toggleTask = (taskId: string) => {
@@ -42,9 +55,16 @@ const ToDoList = () => {
         ));
     }
 
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
+
     return (
         <div className="todoList">
-            <AddField newTask={newTaskTitle} setNewTask={setNewTask} addTask={addTask}/>
+            <div className="formsContainer">
+                <AddTaskForm newTask={newTaskTitle} setNewTask={setNewTask} addTask={addTask}/>
+                <SearchTaskForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} />  
+            </div>
             <TaskList tasks={tasks} removeAll={removeAll} removeOne={removeTask} toggleTask={toggleTask}/>
         </div>
     )

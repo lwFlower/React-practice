@@ -1,14 +1,14 @@
-import type React from "react";
-import Button from "../Button/Button";
-import './styles.css'
+import Button from '../../Button/Button';
+import Field from '../../Field/Field';
+import './style.css';
 
-interface FieldPorps {
+interface AddFormProps {
     newTask: string,
     setNewTask: (newTask: any) => void,
     addTask: () => void,
 }
 
-const AddField = (props: FieldPorps) => {
+const AddTaskForm = (props: AddFormProps) => {
     const {
         newTask,
         setNewTask,
@@ -22,11 +22,16 @@ const AddField = (props: FieldPorps) => {
 
     return (
         <form onSubmit={onSubmit} className="addForm">
-            <input placeholder=" " autoComplete="off" type="text" value={newTask} onInput={(event) => setNewTask(event.currentTarget.value)}></input>
+            <Field 
+                label='New task title'
+                id="id-new-task"
+                value={newTask}
+                onInput={(event) => setNewTask(event.currentTarget.value)}
+            />
             <Button type="text" label="Add" action={() => addTask()}/>
-        </form>
-
+        </form>        
     )
+
 }
 
-export default AddField;
+export default AddTaskForm;

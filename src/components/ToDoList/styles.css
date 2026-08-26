@@ -1,3 +1,9 @@
 .todoList {
     margin-bottom: 20px;
 }
+
+.formsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
