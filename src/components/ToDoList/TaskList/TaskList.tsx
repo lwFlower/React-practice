@@ -2,9 +2,10 @@ import { X } from 'lucide-react';
 import type { TaskType } from '../types';
 import './styles.css';
 import Button from '../../Button/Button';
+import { memo, useMemo } from 'react';
 
 interface DeleteAllProps {
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 const DeleteAllButton = (props: DeleteAllProps) => {
@@ -21,7 +22,7 @@ interface TaskItemProps {
     removeOne: (id: string) => void;
 }
 
-const TaskItem = (props: TaskItemProps) => {
+const TaskItem = memo((props: TaskItemProps) => {
     const { task, ref, toggleTask, removeOne } = props;
 
     return (
@@ -40,7 +41,7 @@ const TaskItem = (props: TaskItemProps) => {
             </div>
         </div>
     );
-};
+});
 
 interface TaskListProps {
     tasks: TaskType[];
@@ -63,7 +64,10 @@ const TaskList = (props: TaskListProps) => {
         toggleTask,
     } = props;
 
-    const tasksDone = tasks.filter((task) => task.isDone === true).length;
+    const tasksDone = useMemo(() => {
+        return tasks.filter((task) => task.isDone === true).length;
+    }, [tasks]);
+
     const tasksLength = tasks.length;
 
     const hasTasks = tasks.length > 0;
@@ -104,4 +108,4 @@ const TaskList = (props: TaskListProps) => {
     );
 };
 
-export default TaskList;
+export default memo(TaskList);

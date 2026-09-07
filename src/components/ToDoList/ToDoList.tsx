@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import './styles.css';
 import type { TaskType } from './types';
 import TaskList from './TaskList/TaskList';
@@ -28,7 +28,7 @@ const ToDoList = () => {
     const firstIncompleteRef = useRef<HTMLDivElement>(null);
     const firstIncompleteId = tasks.find(({ isDone }) => !isDone)?.id;
 
-    const addTask = () => {
+    const addTask = useCallback(() => {
         if (newTaskTitle.trim().length > 0) {
             const newTask = {
                 id: crypto?.randomUUID() ?? Date.now().toString,
@@ -36,28 +36,34 @@ const ToDoList = () => {
                 isDone: false,
             };
 
-            setTasks([...tasks, newTask]);
+            setTasks((prevTasks) => [...prevTasks, newTask]);
             setNewTask('');
             setSearchQuery('');
             newTaskInputRef.current!.focus();
         }
-    };
+    }, [newTaskTitle]);
 
-    const removeTask = (id: string) => {
-        const filteredTasks = tasks.filter((task) => task.id !== id);
-        setTasks(filteredTasks);
-    };
+    const removeTask = useCallback(
+        (id: string) => {
+            const filteredTasks = tasks.filter((task) => task.id !== id);
+            setTasks(filteredTasks);
+        },
+        [tasks]
+    );
 
-    const removeAll = () => {
+    const removeAll = useCallback(() => {
         const isConfirmed = confirm('Are you sure you want to delete all tasks?');
         if (isConfirmed) setTasks([]);
-    };
+    }, []);
 
-    const toggleTask = (taskId: string) => {
-        setTasks(
-            tasks.map((task) => (task.id === taskId ? { ...task, isDone: !task.isDone } : task))
-        );
-    };
+    const toggleTask = useCallback(
+        (taskId: string) => {
+            setTasks(
+                tasks.map((task) => (task.id === taskId ? { ...task, isDone: !task.isDone } : task))
+            );
+        },
+        [tasks]
+    );
 
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -67,11 +73,12 @@ const ToDoList = () => {
         newTaskInputRef.current!.focus();
     }, []);
 
-    const clearSearchQuery = searchQuery.trim().toLowerCase();
-    const filteredTasks =
-        clearSearchQuery.length > 0
+    const filteredTasks = useMemo(() => {
+        const clearSearchQuery = searchQuery.trim().toLowerCase();
+        return clearSearchQuery.length > 0
             ? tasks.filter(({ label }) => label.toLowerCase().includes(clearSearchQuery))
             : null;
+    }, [searchQuery, tasks]);
 
     return (
         <div className="todoList">
