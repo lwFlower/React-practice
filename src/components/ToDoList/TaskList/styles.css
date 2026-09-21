@@ -4,7 +4,9 @@
 }
 
 .taskListContainer {
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .taskListHeader {
@@ -55,4 +57,13 @@ input[type="checkbox"] {
 
 .deleteAll {
     cursor: pointer;
+}
+
+.emptyMessage {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: grey;
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
 }
